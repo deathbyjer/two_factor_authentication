@@ -164,12 +164,14 @@ module Devise
         end
 
         def encryption_options_for(value)
+          algorithm = Devise.otp_secret_encryption_algorithm
+          
           {
             value: value,
             key: Devise.otp_secret_encryption_key,
-            iv: iv_for_attribute,
+            iv: iv_for_attribute(algorithm),
             salt: salt_for_attribute,
-            algorithm: 'aes-256-cbc'
+            algorithm: algorithm
           }
         end
 
